@@ -6,6 +6,7 @@ class ListItem extends Component{
         return(
             <TouchableOpacity
                 style={[StyleSheet.container,this.props.style]}
+                onPress={this.props.onPress}
                 >
                 <Text style={StyleSheet.text}>{this.props.text}</Text>
             </TouchableOpacity>

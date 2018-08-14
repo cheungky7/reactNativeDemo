@@ -1,4 +1,4 @@
-import React ,{ Component } from 'react';
+import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import ListItem from './ListItem';
 
@@ -10,14 +10,15 @@ class Feed extends Component {
     )
 
     renderItems=() => {
-
         return ['one', 'three', 'five'].map((item, i) =>{
             return (
                
                 <ListItem 
+                          key={item}
                           text={`Im item ${item}`}
                           style={{ padding: 10, backgroundColor: `rgb(${i * 20}, ${(i + 1) * 50}, ${(i + 2) * 30})` }}
                           onPress={() => {
+                              console.log(item);
                               this.props.navigation.navigate('ItemDetail', { item, index: i });
                           }}
                 />

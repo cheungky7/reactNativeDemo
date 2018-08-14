@@ -1,9 +1,9 @@
-import { NavigationActions, StackNavigator } from 'react-navigation';
+import { NavigationActions, createStackNavigator } from 'react-navigation';
 //import { Navigator } from './Navigator';
 import Feed from './Feed';
 import ItemDetail from './ItemDetail';
 
-export const AppNavigator = new StackNavigator(
+export const AppNavigator = createStackNavigator(
     {
         Feed: { screen: Feed },
         ItemDetail: { screen: ItemDetail },

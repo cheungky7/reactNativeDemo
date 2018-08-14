@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
 class Item extends Component{
     static navigationOptions=({navigation})=>({
-        title:'Item ${navigation.state.params.item}'
+        title:`Item ${navigation.state.params.item}`
     })
 
     
@@ -11,8 +11,8 @@ class Item extends Component{
     {
         const {item,index}=this.props.navigation.state.params;
         return (
-            <View style={[styles.container,{backgroundColor:'#${index}${index}${index}'}]}>
-                <Text style={styles.text}>{'I am item ${item} detail!'}</Text>
+            <View style={[styles.container,{backgroundColor: `#${index}${index}${index}`}]}>
+                <Text style={styles.text}>{`I am item ${item} detail!`}</Text>
             </View>
         )
     }
