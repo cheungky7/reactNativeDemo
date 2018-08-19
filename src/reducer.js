@@ -1,18 +1,46 @@
-import { NavigationActions, createStackNavigator } from 'react-navigation';
+import { NavigationActions, createStackNavigator, createDrawerNavigator, DrawerContainer } from 'react-navigation';
 //import { Navigator } from './Navigator';
 import Feed from './Feed';
 import React, { Component } from 'react';
 import { Image ,  TouchableOpacity, View ,Text, StyleSheet } from 'react-native';
 import ItemDetail from './ItemDetail';
 
+
+
+const DrawerStack = createDrawerNavigator({
+    Feed: { screen: Feed },
+  }, {
+    gesturesEnabled: false,
+    contentComponent: DrawerContainer
+  });
+
+const drawNavButton = (navigation) => {
+    console.log(navigation);
+    if (navigation.state.index === 0) {
+        navigation.navigate('DrawerOpen');
+      } else {
+        navigation.navigate('DrawerClose');
+      }
+};
+
 class CommonNavTitle extends Component {
 
+    onPress = () => {
+        console.log(this.props.navigation);
+        if (this.props.navigation.state.index === 0) {
+            this.props.navigation.navigate('DrawerOpen');
+          } else {
+            this.props.navigation.navigate('DrawerClose');
+          }
+      }
+
+
     render() {
+        console.log(this.props.navigation);
         return (
             <View style={styles.commonHeader}>
                 <TouchableOpacity 
-                onPress={
-                    () => console.log('pressed')}
+                onPress={this.onPress}
                 >
                 <Image
                     source={ require('../img/icon_large.png')} 
@@ -31,16 +59,15 @@ export const AppNavigator = createStackNavigator(
     {
         Feed: { screen: Feed },
         ItemDetail: { screen: ItemDetail },
+        DrawerStack: { screen: DrawerStack }
     }, {
         initialRouteName: 'Feed',
-
-        navigationOptions: {
+     
+        navigationOptions: ({ navigation }) =>({  
             //title: 'Testing',
-            headerTitle: < CommonNavTitle />,
-           /* headerStyle: {
-                backgroundColor: 'rgb(255, 0, 0)'
-            },*/
-        } 
+            headerTitle: < CommonNavTitle navigation={navigation} />,
+           
+        })
     }
 )
 
