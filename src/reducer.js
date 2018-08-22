@@ -1,9 +1,12 @@
-import { NavigationActions, createStackNavigator, createDrawerNavigator, DrawerContainer } from 'react-navigation';
+import { NavigationActions, createStackNavigator, createDrawerNavigator, DrawerActions } from 'react-navigation';
 //import { Navigator } from './Navigator';
 import Feed from './Feed';
 import React, { Component } from 'react';
 import { Image ,  TouchableOpacity, View ,Text, StyleSheet } from 'react-native';
 import ItemDetail from './ItemDetail';
+import DrawerContainer from './DrawerContainer';
+
+
 
 
 
@@ -14,24 +17,26 @@ const DrawerStack = createDrawerNavigator({
     contentComponent: DrawerContainer
   });
 
-const drawNavButton = (navigation) => {
-    console.log(navigation);
-    if (navigation.state.index === 0) {
-        navigation.navigate('DrawerOpen');
-      } else {
-        navigation.navigate('DrawerClose');
-      }
-};
+
 
 class CommonNavTitle extends Component {
 
     onPress = () => {
         console.log(this.props.navigation);
-        if (this.props.navigation.state.index === 0) {
-            this.props.navigation.navigate('DrawerOpen');
+      
+       /* if (this.props.navigation.state.index === 0) {
+          
+           this.props.navigation.dispatch(DrawerActions.openDrawer());
+           console.log('openDrawer');
           } else {
-            this.props.navigation.navigate('DrawerClose');
+          
+           this.props.navigation.dispatch(DrawerActions.closeDrawer());
+           console.log('DrawerClose()');
           }
+          */
+        // this.props.navigation.dispatch(DrawerActions.openDrawer());
+        this.props.navigation.navigate('DrawerOpen');
+
       }
 
 
@@ -58,13 +63,14 @@ class CommonNavTitle extends Component {
 export const AppNavigator = createStackNavigator(
     {
         Feed: { screen: Feed },
-        ItemDetail: { screen: ItemDetail },
+       ItemDetail: { screen: ItemDetail },
         DrawerStack: { screen: DrawerStack }
     }, {
         initialRouteName: 'Feed',
      
         navigationOptions: ({ navigation }) =>({  
             //title: 'Testing',
+            console.log(navigation);
             headerTitle: < CommonNavTitle navigation={navigation} />,
            
         })
@@ -78,7 +84,10 @@ const initialState = AppNavigator.router.getStateForAction(initialAction);
 export const navReducer = (state = initialState, action) => {
     console.log(action);
     console.log(state);
-    return AppNavigator.router.getStateForAction(action, state);
+    console.log(AppNavigator.router);
+     const newState = AppNavigator.router.getStateForAction(action, state);
+     console.log(newState);
+     return newState;
 };
 
 const styles = StyleSheet.create({
